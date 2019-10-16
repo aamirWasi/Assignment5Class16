@@ -4,14 +4,16 @@ using Assignment5Class16;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment5Class16.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20191016152715_AddBarcodeToBorrowBooksModel")]
+    partial class AddBarcodeToBorrowBooksModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +58,9 @@ namespace Assignment5Class16.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BorrowCount")
                         .HasColumnType("int");
 
@@ -70,27 +75,11 @@ namespace Assignment5Class16.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookId");
+
                     b.HasIndex("StudentId");
 
                     b.ToTable("BorrowBooks");
-                });
-
-            modelBuilder.Entity("Assignment5Class16.ReturnBook", b =>
-                {
-                    b.Property<string>("Barcode")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("BooksReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Barcode");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("ReturnBooks");
                 });
 
             modelBuilder.Entity("Assignment5Class16.Student", b =>
@@ -113,17 +102,12 @@ namespace Assignment5Class16.Migrations
 
             modelBuilder.Entity("Assignment5Class16.BorrowBook", b =>
                 {
-                    b.HasOne("Assignment5Class16.Student", null)
-                        .WithMany("Borrows")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.HasOne("Assignment5Class16.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId");
 
-            modelBuilder.Entity("Assignment5Class16.ReturnBook", b =>
-                {
-                    b.HasOne("Assignment5Class16.Student", null)
-                        .WithMany("ReturnBooks")
+                    b.HasOne("Assignment5Class16.Student", "Student")
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

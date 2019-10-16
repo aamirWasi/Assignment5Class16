@@ -93,6 +93,14 @@ namespace Assignment5Class16.Controllers
 
             return student;
         }
+        //[HttpGet("{id:int}/GetBorrowBooks")]
+        //public ActionResult<IList<Book>> GetBorrowBooks(int id)
+        //{
+        //    var borrows = _context.GetId(id);
+        //    if (borrows == null)
+        //        return BadRequest();
+        //    return Ok(borrows);
+        //}
 
         //private bool StudentExists(int id)
         //{

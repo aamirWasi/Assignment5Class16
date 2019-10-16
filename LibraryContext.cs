@@ -13,7 +13,15 @@ namespace Assignment5Class16
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Student>()
+            //    .HasMany(s => s.Borrows);
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<Student> Students { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<BorrowBook> BorrowBooks { get; set; }
+        public DbSet<ReturnBook> ReturnBooks { get; set; }
     }
 }

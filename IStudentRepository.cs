@@ -12,5 +12,6 @@ namespace Assignment5Class16
         Student GetById(int id);
         void DeleteStudentRow(int id);
         void UpdateStudentDetails(Student student);
+        //IList<Book> GetBorrowBooks(int studentId);
     }
 }

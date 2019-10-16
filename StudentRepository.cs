@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,12 +25,55 @@ namespace Assignment5Class16
 
         public ICollection<Student> GetAll()
         {
-            return _context.Students.ToList();
+            return _context.Students
+                .Include(b=>b.Borrows)
+                .Include(r=>r.ReturnBooks)
+                .ToList();
         }
+
+        //public IList<Book> GetBorrowBooks(int id,string barcode)
+        //{
+        //    var b = _context.Books.Find(barcode);
+        //    var s = _context.Students.Find(id);
+        //    if (b.CountCopy > 0)
+        //    {
+        //        if (s.StudentId == id && b.Barcode == barcode)
+        //        {
+        //            _context.BorrowBooks.Add(new BorrowBook
+        //            {
+        //                 Barcode=barcode,
+        //                  BorrowCount=3,
+        //                    StudentId=id,
+        //                     BorrowDate=DateTime.UtcNow,
+        //                      ReturnDate=DateTime.UtcNow.AddDays(7),
+        //                       Books = new List<Book>
+        //                       {
+        //                           new Book
+        //                           {
+        //                                Barcode=b.Barcode,
+        //                                Author=b.Author,
+        //                                 BookId=b.BookId,
+        //                                  CountCopy=b.CountCopy,
+        //                                   Edition=b.Edition,
+        //                                    Title=b.Title
+        //                           }
+        //                       }
+        //            });
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Quantity is greater than the available stocks");
+        //    }
+
+        //}
 
         public Student GetById(int id)
         {
-            return _context.Students.Find(id);
+            return _context.Students
+                .Include(b => b.Borrows)
+                .Include(r => r.ReturnBooks)
+                .FirstOrDefault(s=>s.StudentId==id);
         }
 
         public Student InsertAStudent(Student student)

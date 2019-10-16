@@ -56,6 +56,7 @@ namespace Assignment5Class16
             {
                 endpoints.MapControllers();
             });
+            DummyData.Initialize(app);
         }
     }
 }
