@@ -93,6 +93,20 @@ namespace Assignment5Class16.Controllers
 
             return student;
         }
+        [HttpGet("{id:int}/CheckFine")]
+        public ActionResult<double> LateFine(int id)
+        {
+            var student = _context.GetId(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return student.FineAmount = _context.LateFee(id);
+        }
+
+
+
         //[HttpGet("{id:int}/GetBorrowBooks")]
         //public ActionResult<IList<Book>> GetBorrowBooks(int id)
         //{

@@ -37,31 +37,39 @@ namespace Assignment5Class16
             {
                 new BorrowBook
                 {
-                     Barcode="5555",
+                     Barcode="2222",
                       BorrowCount=3,
                        BorrowDate=DateTime.UtcNow,
-                        ReturnDate=DateTime.UtcNow.AddDays(7),
+                        ReturnDate=DateTime.UtcNow.AddDays(3),
                          StudentId=1
                 },
                 new BorrowBook
                 {
-                     Barcode="6666",
+                     Barcode="1111",
+                      BorrowCount=3,
+                       BorrowDate=DateTime.UtcNow,
+                        ReturnDate=DateTime.UtcNow.AddDays(1),
+                         StudentId=1
+                },
+                new BorrowBook
+                {
+                     Barcode="1111",
                       BorrowCount=1,
                        BorrowDate=DateTime.UtcNow,
                         ReturnDate=DateTime.UtcNow.AddDays(7),
-                         StudentId=1
+                         StudentId=2
                 },
                 new BorrowBook
                 {
-                     Barcode="7777",
+                     Barcode="3333",
                       BorrowCount=2,
                        BorrowDate=DateTime.UtcNow,
                         ReturnDate=DateTime.UtcNow.AddDays(7),
-                         StudentId=1
+                         StudentId=5
                 },
                 new BorrowBook
                 {
-                     Barcode="8888",
+                     Barcode="1111",
                       BorrowCount=1,
                        BorrowDate=DateTime.UtcNow,
                         ReturnDate=DateTime.UtcNow.AddDays(7),
@@ -76,21 +84,27 @@ namespace Assignment5Class16
             {
                 new ReturnBook
                 {
-                     Barcode="5555",
+                     Barcode="2222",
                       BooksReturnDate=DateTime.UtcNow.AddDays(9),
                        StudentId=1
                 },
                 new ReturnBook
                 {
-                     Barcode="1111",
-                      BooksReturnDate=DateTime.UtcNow.AddDays(3),
+                     Barcode="3333",
+                      BooksReturnDate=DateTime.UtcNow.AddDays(2),
                        StudentId=1
                 },
                 new ReturnBook
                 {
-                     Barcode="7777",
-                      BooksReturnDate=DateTime.UtcNow.AddDays(7),
+                     Barcode="1111",
+                      BooksReturnDate=DateTime.UtcNow.AddDays(10),
                        StudentId=2
+                },
+                new ReturnBook
+                {
+                     Barcode="1111",
+                      BooksReturnDate=DateTime.UtcNow.AddDays(8),
+                       StudentId=1
                 },
             };
             return returns;
@@ -103,12 +117,18 @@ namespace Assignment5Class16
                 {
                      Name = "rashed",
                       Borrows = new List<BorrowBook>(context.BorrowBooks.Take(3)),
-                       ReturnBooks = new List<ReturnBook>(context.ReturnBooks.Skip(1).Take(3))
+                       ReturnBooks = new List<ReturnBook>(context.ReturnBooks.OrderBy(r=>r.Barcode).Skip(1))
                 },
                 new Student
                 {
                      Name = "aamirWasi",
-                      Borrows = new List<BorrowBook>(context.BorrowBooks.Take(1)),
+                      Borrows = new List<BorrowBook>(context.BorrowBooks.Take(3)),
+                       ReturnBooks = new List<ReturnBook>(context.ReturnBooks.Take(3))
+                },
+                new Student
+                {
+                     Name = "ripa",
+                      Borrows = new List<BorrowBook>(context.BorrowBooks.Take(3)),
                        ReturnBooks = new List<ReturnBook>(context.ReturnBooks)
                 },
             };

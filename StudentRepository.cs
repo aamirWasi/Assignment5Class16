@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment5Class16
 {
-    public class StudentRepository : IStudentRepository
+    public class StudentRepository : IStudentRepository, IReportRepository
     {
         private readonly LibraryContext _context;
 
@@ -82,6 +82,57 @@ namespace Assignment5Class16
             _context.SaveChanges();
             student.StudentId = insert.Entity.StudentId;
             return student;
+        }
+
+        public double LateFee(int id)
+        {
+            var student = _context.Students.FirstOrDefault(s => s.StudentId == id);
+            //var student = _context.Students
+            //    .Where(x => x.StudentId == bookReturn.StudentId)
+            //    .FirstOrDefault();
+            var bookIssue = _context.BorrowBooks.FirstOrDefault(b => b.StudentId == id);
+            var bookReturn = _context.ReturnBooks.FirstOrDefault(b=>b.StudentId==id);
+            //var bookReturn = DateTime.UtcNow.AddDays(10);
+
+            /*
+             var student = context.Students
+                .Where(x => x.StudentId == bookReturn.StudentId)
+                .FirstOrDefault();
+            var bookIssue = context.BookIssues
+                .Where(x => x.Barcode == bookReturn.Barcode)
+                .FirstOrDefault();
+            if (bookReturn.BookReturnDate > bookIssue.ReturnDate)
+            {
+                var timeSpan = bookReturn.BookReturnDate - bookIssue.ReturnDate;
+                var days = timeSpan.Days;
+                for (int i = 0; i < days; i++)
+                {
+                    student.FineAmount += 10;
+                }
+            }
+             */
+            if(bookIssue!=null && bookReturn != null)
+            {
+                var timeSpan = bookReturn.BooksReturnDate - bookIssue.ReturnDate;
+                var days = timeSpan.Days;
+                if (days > 0)
+                {
+                    for (int i = 0; i < days; i++)
+                    {
+                        student.FineAmount += 10;
+                    }
+                }
+                else
+                {
+                    student.FineAmount = 0;
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Not issue a single  book");
+            }
+            return student.FineAmount;
         }
 
         public void UpdateStudentDetails(Student student)

@@ -34,6 +34,16 @@ namespace Assignment5Class16
             return _context.GetById(id);
         }
 
+        //public double Fine(int id, string barcode)
+        //{
+        //   return _context.LateFee()
+        //}
+
+        public double LateFee(int id)
+        {
+            return _context.LateFee(id);
+        }
+
         public void Update(Student student)
         {
             _context.UpdateStudentDetails(student);

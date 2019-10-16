@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Assignment5Class16
 {
-    public interface IStudentsService
+    public interface IStudentsService:IReportRepository
     {
         ICollection<Student> Get();
         Student Add(Student student);
