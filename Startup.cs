@@ -31,6 +31,10 @@ namespace Assignment5Class16
             services
                 .AddTransient<IStudentRepository, StudentRepository>()
                 .AddTransient<IStudentsService,StudentsService>();
+
+            services
+                .AddTransient<IBookRepository, BookRepository>()
+                .AddTransient<IBookService, BookService>();
             services.AddControllers();
         }
 
