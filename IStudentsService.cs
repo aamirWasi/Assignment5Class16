@@ -11,5 +11,6 @@ namespace Assignment5Class16
         Student Add(Student student);
         Student GetId(int id);
         void Delete(int id);
+        void Update(Student student);
     }
 }

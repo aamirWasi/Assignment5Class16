@@ -33,5 +33,10 @@ namespace Assignment5Class16
         {
             return _context.GetById(id);
         }
+
+        public void Update(Student student)
+        {
+            _context.UpdateStudentDetails(student);
+        }
     }
 }

@@ -44,38 +44,33 @@ namespace Assignment5Class16.Controllers
         //// PUT: api/Students/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
         //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutStudent(int id, Student student)
-        //{
-        //    if (id != student.StudentId)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public IActionResult PutStudent(int id, Student student)
+        {
+            if (id != student.StudentId)
+            {
+                return BadRequest();
+            }
 
-        //    _context.Entry(student).State = EntityState.Modified;
+            //_context.Entry(student).State = EntityState.Modified;
+            var note = _context.GetId(id);
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!StudentExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
 
-        //    return NoContent();
-        //}
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-        // POST: api/Students
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+
+            student.StudentId = id;
+            _context.Update(student);
+
+            return NoContent();
+        }
+
+            // POST: api/Students
+            // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+            // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public ActionResult<Student> PostStudent(Student student)
         {

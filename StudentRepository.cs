@@ -39,5 +39,14 @@ namespace Assignment5Class16
             student.StudentId = insert.Entity.StudentId;
             return student;
         }
+
+        public void UpdateStudentDetails(Student student)
+        {
+            var update = GetById(student.StudentId);
+            update.Name = student.Name;
+            update.FineAmount = student.FineAmount;
+            _context.Students.Update(update);
+            _context.SaveChanges();
+        }
     }
 }
