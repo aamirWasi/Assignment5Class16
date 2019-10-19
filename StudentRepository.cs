@@ -106,12 +106,14 @@ namespace Assignment5Class16
                 {
                     student.FineAmount = 0;
                 }
+
                 _context.SaveChanges();
             }
             else
             {
                 Console.WriteLine("Not issue a single  book");
             }
+
             return student.FineAmount;
         }
 
